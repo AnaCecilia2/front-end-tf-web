@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ShareBooks</title>
+    <link rel="stylesheet" href="src/styles/styleMain.css" />
+    <link rel="stylesheet" href="../styles/colors.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script src="../js/crudBooks.js"></script>
+  </head>
+  <body class="bg-background">
+    <header>
+      <section id="header">
+        <nav
+          class="navbar navbar-expand-lg bg-dark-purple px-4 justify-content-center align-items-center"
+        >
+          <div class="container-fluid">
+            <a class="navbar-brand text-light" href="../../index.html"
+              ><div class="p-1 height-25">
+                <img
+                  src="../assets/Book-removebg-preview.png"
+                  style="height: 40px"
+                  alt=""
+                />
+              </div>
+            </a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNavAltMarkup"
+              aria-controls="navbarNavAltMarkup"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div
+              class="collapse navbar-collapse flex-grow-0"
+              id="navbarNavAltMarkup"
+              style="flex-direction: row-reverse"
+            >
+              <div class="navbar-nav">
+                <a
+                  id="linkCreate"
+                  class="nav-link px-3 text-light"
+                  href="createAnunc.html"
+                  ><img
+                    src="../assets/icons8-tecla-mais-100.png"
+                    style="width: 40px; height: 40px; margin-left: 10%"
+                /></a>
+                <a
+                  class="justify-content-center align-items-center d-flex text-decoration-none"
+                  href="user.html"
+                >
+                  <div
+                    class="userContainer justify-content-center align-items-center d-flex"
+                  >
+                    <span
+                      id="linkUsername"
+                      class="px-3 text-light"
+                      style="display: none"
+                    ></span>
+                    <div>
+                      <img
+                        id="userProfile"
+                        src="../assets/icons8-usuário-de-gênero-neutro-100.png"
+                        style="width: 25px; height: 25px"
+                      />
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </section>
+    </header>
+    <main>
+      <section
+        class="container my-5 d-flex flex-direction-row justify-content-center flex-wrap"
+        id="bookProfileContainer"
+      >
+        <div class="card m-2 shadow p-4 w-75">
+          <div
+            class="w-100 justify-content-center align-items-center text-center"
+          >
+            <h5 class="card-title text-color mb-4">
+              Criar novo anúncio de livro
+            </h5>
+          </div>
+          <form id="createBookForm" class="width-75">
+            <div class="mb-3">
+              <label for="bookTitle" class="form-label">Título do livro</label>
+              <input type="text" class="form-control" id="bookTitle" required />
+            </div>
+            <div class="mb-3">
+              <label for="condition" class="form-label">Condição de uso</label>
+              <select class="form-select" id="condition" required>
+                <option value="Novo">Novo</option>
+                <option value="Usado">Usado</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="price" class="form-label">Preço (R$)</label>
+              <input
+                type="text"
+                class="form-control"
+                id="price"
+                autocomplete="off"
+                oninput="formatarMoeda(this)"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Descrição</label>
+              <textarea
+                class="form-control"
+                id="description"
+                rows="3"
+                required
+              ></textarea>
+            </div>
+            <div
+              class="w-100 justify-content-center align-items-center text-center"
+            >
+              <button
+                type="button"
+                class="btn-insert btn btn-color"
+                onclick="inserirAnuncio()"
+              >
+                Criar anúncio
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../js/isLogged.js"></script>
+
+    <script>
+      function formatarMoeda(input) {
+        let valor = parseFloat(input.value.replace(/[^\d]/g, ""));
+
+        let valorFormatado = new Intl.NumberFormat("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        }).format(valor / 100);
+
+        input.value = valorFormatado;
+      }
+    </script>
+  </body>
+</html>

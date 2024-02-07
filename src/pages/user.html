@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ShareBooks</title>
+    <link rel="stylesheet" href="src/styles/styleMain.css" />
+    <link rel="stylesheet" href="../styles/colors.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script src="../auth/logoutUser.js"></script>
+    <script src="../auth/deleteuUser.js"></script>
+    <script src="../js/user.js"></script>
+    <script src="../js/crudBooks.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="../auth/editUser.js"></script>
+  <body class="bg-background">
+    <header>
+      <section id="header">
+        <nav
+          class="navbar navbar-expand-lg bg-colorone px-4 justify-content-center align-items-center"
+        >
+          <div class="container-fluid">
+            <a class="navbar-brand text-light" href="../../index.html"
+              ><div class="p-1 height-25">
+                <img
+                  src="../assets/Book-removebg-preview.png"
+                  style="height: 40px"
+                  alt=""
+                />
+              </div>
+            </a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNavAltMarkup"
+              aria-controls="navbarNavAltMarkup"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div
+              class="collapse navbar-collapse flex-grow-0"
+              id="navbarNavAltMarkup"
+              style="flex-direction: row-reverse"
+            >
+              <div class="navbar-nav">
+                <a
+                  id="linkCreate"
+                  class="nav-link px-3 text-light"
+                  href="createAnunc.html"
+                  ><img
+                    src="../assets/icons8-tecla-mais-100.png"
+                    style="width: 40px; height: 40px; margin-left: 10%"
+                /></a>
+                <a
+                  class="justify-content-center align-items-center d-flex text-decoration-none"
+                  href="user.html"
+                >
+                  <div
+                    class="userContainer justify-content-center align-items-center d-flex"
+                  >
+                    <span
+                      id="linkUsername"
+                      class="px-3 text-light"
+                      style="display: none"
+                    ></span>
+                    <div>
+                      <img
+                        id="userProfile"
+                        src="../assets/icons8-usuário-de-gênero-neutro-100.png"
+                        style="width: 25px; height: 25px"
+                      />
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </section>
+    </header>
+    <main>
+      <div class="flex-direction-row d-flex justify-content-start">
+        <div class="bg-colorone rounded d-block justify-content-center align-items-center m-2" style="min-height: 49rem; min-width: 85rem;">
+          <h1 class="text-light w-100 text-center">Meus anúncios</h1>
+          <div
+            class="container my-2 d-flex flex-direction-row justify-content-center flex-wrap shadow"
+            id="bookContainer"
+          >
+          </div>
+          <div class="container my-3 text-center text-light bottom-buttons">
+            <button class="btn btn-color mx-2 text-light" id="prevPageBtn">
+              <
+            </button>
+            <span id="currentPage" class="mx-2">1</span>
+            <button class="btn btn-color mx-2 text-light" id="nextPageBtn">
+              >
+            </button>
+          </div>
+        </div>
+        <div class="d-block justify-content-center align-items-center text-center flex-grow-1 my-2 bg-white h-25 p-3 rounded shadow">
+          <div id="profilePicture"><img src="../assets/1486395884-account_80606.png" style="width: 16rem;" alt=""></div>
+          <div id="username" class="my-2 fs-3"></div>
+          <div id="contato" class="mb-5"></div>
+          <button
+              type="button"
+              class="btn btn-secondary w-100 my-1 shadow-lg"
+              data-bs-toggle="modal" data-bs-target="#editAccountModal"
+            >
+               Editar informações
+          </button>
+          <button
+              type="button"
+              class="btn btn-secondary w-100 my-1 shadow-lg"
+              onclick="logout()"
+            >
+              Sair da conta
+          </button>
+          <button
+              type="button"
+              class="btn btn-danger w-100 my-1 shadow-lg"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteAccountModal"
+            >
+              Deletar Conta
+          </button>
+        </div>
+      </div>
+    </main>
+    <div class="modal fade" id="editBookModal" tabindex="-1" aria-labelledby="editBookModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editBookModalLabel">Editar Informações do Livro</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editBookForm">
+              <div class="mb-3">
+                <label for="editBookTitle" class="form-label">Título:</label>
+                <input type="text" class="form-control" id="editBookTitle" name="editBookTitle" required>
+              </div>
+              <div class="mb-3">
+                <label for="editBookCondition" class="form-label">Estado de Conservação:</label>
+                <input type="text" class="form-control" id="editBookCondition" name="editBookCondition" required>
+              </div>
+              <div class="mb-3">
+                <label for="editBookPrice" class="form-label">Preço:</label>
+                <input type="text" class="form-control" id="editBookPrice" name="editBookPrice" required>
+              </div>
+              <div class="mb-3">
+                <label for="editBookDescription" class="form-label">Descrição:</label>
+                <textarea class="form-control" id="editBookDescription" name="editBookDescription" required></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary update-btn" onclick="updateAnuncio()">Salvar Alterações</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="editAccountModal" tabindex="-1" aria-labelledby="editAccountModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editAccountModalLabel">Editar Conta</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editAccountForm">
+              <div class="mb-3">
+                <label for="editUsername" class="form-label">Nome de Usuário:</label>
+                <input type="text" class="form-control" id="editUsername" name="username" required>
+              </div>
+              <div class="mb-3">
+                <label for="editEmail" class="form-label">E-mail:</label>
+                <input type="email" class="form-control" id="editEmail" name="email" disabled required>
+              </div>
+              <div class="form-group">
+                <label for="editContato">Contato:</label>
+                <input type="tel" class="form-control" id="editContato" name="telefone" pattern="[0-9]{10}" placeholder="Apenas números, sem espaços ou caracteres especiais" required>
+            </div>
+    
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn-editconta btn btn-primary" id="saveAccountChangesBtn" onclick="editarConta()">Salvar Alterações</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+    class="modal fade"
+    id="deleteAdModal"
+    tabindex="-1"
+    aria-labelledby="deleteAdModalLabel"
+    aria-hidden="true"
+    >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteAdModalLabel">
+            Excluir Anúncio
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          Tem certeza de que deseja excluir este anúncio? Esta ação não pode ser desfeita.
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            class="delete-btn btn btn-danger"
+            onclick="deleteBook()"
+          >
+            Excluir
+          </button>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div
+      class="modal fade"
+      id="deleteAccountModal"
+      tabindex="-1"
+      aria-labelledby="deleteAccountModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteAccountModalLabel">
+              Deletar Conta
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            Tem certeza de que deseja deletar sua conta? Esta ação não pode
+            ser desfeita.
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              onclick="doDeleteUser()"
+            >
+              Deletar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="../js/renderUserBooks.js"></script>
+    <script src="../js/isLogged.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
