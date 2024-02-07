@@ -1,4 +1,5 @@
 # ShareBooks
+#### Integrantes: Ana Cecília, Any, Maria Vitória, Pietra, Raica e Raissa; 3° info A
 
 ## Link para o Deploy do Projeto
 Acesse o projeto em: [ShareBooks - Deploy](https://sharebooks.netlify.app/)
